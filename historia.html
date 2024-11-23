@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Configuración básica de la página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia de Tecnologías Cloud</title>
+    
+    <!-- Enlaces a frameworks CSS externos -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        /* Estilos base para las tarjetas */
+        .card {
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            opacity: 0;
+            position: relative;
+            -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            -o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Animaciones de entrada para cada tarjeta */
+        .card-1 {
+            animation: slideFromLeft 1s forwards;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-2 {
+            animation: popUp 1s forwards;
+            animation-delay: 0.2s;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-3 {
+            animation: slideFromRight 1s forwards;
+            animation-delay: 0.4s;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-4 {
+            animation: rotateIn 1s forwards;
+            animation-delay: 0.6s;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-5 {
+            animation: bounceIn 1s forwards;
+            animation-delay: 0.8s;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Efectos hover para cada tarjeta */
+        .card-1:hover { transform: translateY(-10px) rotate(2deg); }
+        .card-2:hover { transform: scale(1.05); }
+        .card-3:hover { transform: translateY(-10px) translateX(5px); }
+        .card-4:hover { transform: translateY(-10px) rotate(-2deg); }
+        .card-5:hover { transform: scale(1.05) translateY(-5px); }
+
+        /* Estilos de la barra de navegación */
+        .navbar {
+            background: rgba(33, 37, 41, 0.95) !important;
+            backdrop-filter: blur(10px);
+            animation: slideDown 0.5s ease-out;
+        }
+
+        /* Estilos para los enlaces de navegación */
+        .navbar-brand, .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        /* Efecto de subrayado en enlaces de navegación */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: #23a6d5;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Estilos para el botón del menú en móviles */
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        /* Animación del título principal */
+        h1 {
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Línea decorativa bajo el título */
+        h1::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(to right, #23a6d5, #23d5ab);
+            animation: widthIn 1s ease-out forwards;
+            transform-origin: left;
+        }
+
+        /* Estilos para los videos en las tarjetas */
+        .card-video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+        
+        /* Efecto hover para videos */
+        .card:hover .card-video {
+            transform: scale(1.02);
+        }
+        
+        /* Fondo animado del body */
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Estilos para títulos de tarjetas */
+        .card-title {
+            color: #2c3e50;
+            font-weight: bold;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        /* Línea decorativa bajo títulos de tarjetas */
+        .card-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #3498db;
+            transition: width 0.3s ease;
+        }
+        
+        .card:hover .card-title::after {
+            width: 100%;
+        }
+        
+        /* Animación para el texto de las tarjetas */
+        .card-text {
+            color: #34495e;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.5s forwards;
+            animation-delay: 0.3s;
+        }
+
+        /* Definición de todas las animaciones */
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        @keyframes slideFromLeft {
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes popUp {
+            0% { opacity: 0; transform: scale(0.3); }
+            70% { transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideFromRight {
+            0% { opacity: 0; transform: translateX(100px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes rotateIn {
+            0% { opacity: 0; transform: rotate(-180deg) scale(0); }
+            100% { opacity: 1; transform: rotate(0) scale(1); }
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 0.9; transform: scale(1.1); }
+            80% { opacity: 1; transform: scale(0.89); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes widthIn {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Tecnologías Cloud</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="historia.html">Historia</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tipos.html">Tipos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aplicacion.html">Aplicación</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenedor principal con la línea del tiempo -->
+    <div class="container mt-5">
+        <h1 class="text-center mb-5 animate__animated animate__fadeIn">Evolución Histórica de Cloud Computing</h1>
+        
+        <!-- Grid de tarjetas -->
+        <div class="row">
+            <!-- Tarjeta 1: 1960s -->
+            <div class="col-md-4">
+                <div class="card card-1">
+                    <video class="card-video" controls preload="metadata">
+                        <source src="videos/Video01.webm" type="video/webm">
+                        <div class="fallback-message">
+                            <p>Tu navegador no soporta el elemento de video.</p>
+                            <p>Puedes <a href="videos/Video01.webm">descargar el video</a> y verlo en tu reproductor favorito.</p>
+                        </div>
+                    </video>
+                    <div class="card-body">
+                        <h5 class="card-title">1960s: Primeros Conceptos</h5>
+                        <p class="card-text">J.C.R. Licklider desarrolla ARPANET, precursor de internet, introduciendo conceptos de redes y recursos compartidos.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 2: 1999 -->
+            <div class="col-md-4">
+                <div class="card card-2">
+                    <video class="card-video" controls preload="metadata">
+                        <source src="videos/Video02.webm" type="video/webm">
+                        <div class="fallback-message">
+                            <p>Tu navegador no soporta el elemento de video.</p>
+                            <p>Puedes <a href="videos/Video02.webm">descargar el video</a> y verlo en tu reproductor favorito.</p>
+                        </div>
+                    </video>
+                    <div class="card-body">
+                        <h5 class="card-title">1999: Salesforce.com</h5>
+                        <p class="card-text">Primera aplicación que demuestra la viabilidad del software como servicio, revolucionando la distribución de aplicaciones empresariales.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 3: 2006 -->
+            <div class="col-md-4">
+                <div class="card card-3">
+                    <video class="card-video" controls preload="metadata">
+                        <source src="videos/Video03.webm" type="video/webm">
+                        <div class="fallback-message">
+                            <p>Tu navegador no soporta el elemento de video.</p>
+                            <p>Puedes <a href="videos/Video03.webm">descargar el video</a> y verlo en tu reproductor favorito.</p>
+                        </div>
+                    </video>
+                    <div class="card-body">
+                        <h5 class="card-title">2006: Amazon Web Services</h5>
+                        <p class="card-text">Lanzamiento de servicios de infraestructura en la nube, permitiendo a empresas escalar recursos computacionales bajo demanda.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 4: 2008 -->
+            <div class="col-md-6">
+                <div class="card card-4">
+                    <video class="card-video" controls preload="metadata">
+                        <source src="videos/Video04.webm" type="video/webm">
+                        <div class="fallback-message">
+                            <p>Tu navegador no soporta el elemento de video.</p>
+                            <p>Puedes <a href="videos/Video04.webm">descargar el video</a> y verlo en tu reproductor favorito.</p>
+                        </div>
+                    </video>
+                    <div class="card-body">
+                        <h5 class="card-title">2008: Google Cloud Platform</h5>
+                        <p class="card-text">Google entra en el mercado cloud, ofreciendo servicios de computación escalables y altamente eficientes.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tarjeta 5: 2014 -->
+            <div class="col-md-6">
+                <div class="card card-5">
+                    <video class="card-video" controls preload="metadata">
+                        <source src="videos/Video05.webm" type="video/webm">
+                        <div class="fallback-message">
+                            <p>Tu navegador no soporta el elemento de video.</p>
+                            <p>Puedes <a href="videos/Video05.webm">descargar el video</a> y verlo en tu reproductor favorito.</p>
+                        </div>
+                    </video>
+                    <div class="card-body">
+                        <h5 class="card-title">2014: Consolidación Multicloud</h5>
+                        <p class="card-text">Empresas comienzan a adoptar estrategias de múltiples proveedores cloud para optimizar costos y rendimiento.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

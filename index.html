@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Configuración básica del documento y viewport -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecnologías Cloud</title>
+    <!-- Enlaces a hojas de estilo externas: Bootstrap y AOS para animaciones -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <style>
+        /* Estilos para la barra de navegación con efecto de cristal y animación */
+        .navbar {
+            background: rgba(33, 37, 41, 0.95) !important;
+            backdrop-filter: blur(10px);
+            /* Compatible con múltiples navegadores */
+            -webkit-backdrop-filter: blur(10px);
+            -moz-backdrop-filter: blur(10px);
+            animation: slideDown 0.5s ease-out;
+            -webkit-animation: slideDown 0.5s ease-out;
+            -moz-animation: slideDown 0.5s ease-out;
+            z-index: 1000;
+        }
+
+        .navbar-brand,
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Efectos de hover para los enlaces de navegación */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: #23a6d5;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-toggler:hover {
+            transform: scale(1.1);
+        }
+
+        /* Fondo animado con gradiente para el body */
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            /* Compatible con múltiples navegadores */
+            -webkit-background-size: 400% 400%;
+            -moz-background-size: 400% 400%;
+            -o-background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            -webkit-animation: gradient 15s ease infinite;
+            -moz-animation: gradient 15s ease infinite;
+            -o-animation: gradient 15s ease infinite;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .carousel {
+            margin-top: -16px;
+        }
+
+        /* Estilos para el carrusel y sus elementos */
+        .carousel-item {
+            height: 60vh;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Estilos para las tarjetas con efecto hover */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            -webkit-transform: translateY(-10px);
+            -moz-transform: translateY(-10px);
+            -ms-transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            -webkit-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+    
+        @-webkit-keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @-moz-keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @-o-keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @-webkit-keyframes slideDown {
+            from { -webkit-transform: translateY(-100%); }
+            to { -webkit-transform: translateY(0); }
+        }
+        @-moz-keyframes slideDown {
+            from { -moz-transform: translateY(-100%); }
+            to { -moz-transform: translateY(0); }
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .main-content {
+            flex: 1;
+        }
+        /**/
+
+        .video-section {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Contenedor de video responsivo */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+        }
+
+        /* Estilos para la sección de estadísticas */
+        .stats-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            flex: 1;
+            height: fit-content;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #23a6d5;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Animaciones keyframes para gradientes y efectos */
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        /* Internet Explorer specific fixes */
+        @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+            body {
+                background: #23a6d5; /* Fallback for IE */
+            }
+            
+            .card {
+                background: white;
+                border: 1px solid #ddd;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content-wrapper {
+                flex-direction: column;
+            }
+        }
+
+        .container {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Barra de navegación con efecto de cristal -->
+    <nav class="navbar navbar-expand-lg navbar-dark nav-custom">
+        <!-- Estructura del menú de navegación usando Bootstrap -->
+        <div class="container">
+            <a class="navbar-brand" href="#">Tecnologías Cloud</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="historia.html">Historia</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tipos.html">Tipos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="aplicacion.html">Aplicación</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Carrusel principal con imágenes y textos -->
+    <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+        <!-- Slides del carrusel con fondos de imagen y textos superpuestos --> 
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-image: url('imagenes/Baner02.jpg')">
+                <div class="carousel-caption">
+                    <h2>Innovación en la Nube</h2>
+                    <p>Descubre cómo la tecnología cloud está transformando el mundo empresarial</p>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('imagenes/Baner03.jpg')">
+                <div class="carousel-caption">
+                    <h2>Soluciones Escalables</h2>
+                    <p>Arquitecturas flexibles que crecen con tu negocio</p>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('imagenes/Baner01.jpg')">
+                <div class="carousel-caption">
+                    <h2>Seguridad Avanzada</h2>
+                    <p>Protección de datos de última generación</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+
+    <!-- Contenedor principal con información y estadísticas -->
+    <div class="container mt-5">
+        <!-- Tarjeta principal con texto introductorio -->
+        <div class="main-content-wrapper">
+            <!-- Contenido sobre tecnologías cloud -->
+            <div class="main-content">
+                <div class="card" data-aos="fade-up">
+                    <div class="card-body text-center">
+                        <h1 class="card-title mb-4">Tecnologías Cloud: Transformando el Mundo Digital</h1>
+                        <p class="card-text">Las tecnologías cloud representan la revolución más importante en
+                            computación desde la invención de internet. Permiten a empresas y individuos acceder a
+                            recursos informáticos sin necesidad de infraestructura local costosa.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de estadísticas con contador animado -->
+            <div class="stats-container" data-aos="fade-up">
+                <!-- Estadísticas con números animados -->
+                <div class="row">
+                    <div class="col-md-4 stat-item">
+                        <div class="stat-number" data-count="90">0</div>
+                        <div class="stat-label">% de empresas usando cloud</div>
+                    </div>
+                    <div class="col-md-4 stat-item">
+                        <div class="stat-number" data-count="500">0</div>
+                        <div class="stat-label">Millones de usuarios</div>
+                    </div>
+                    <div class="col-md-4 stat-item">
+                        <div class="stat-number" data-count="65">0</div>
+                        <div class="stat-label">% de reducción en costos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Sección de video con reproductor responsivo -->
+        <div class="row mt-5">
+            <div class="col-md-10 offset-md-1">
+                <div class="video-container" data-aos="zoom-in">
+                    <video class="card-video" controls preload="metadata">
+                        <source src="videos/VideoIndex.webm" type="video/webm">
+                        <div class="fallback-message">
+                            <p>Tu navegador no soporta el elemento de video.</p>
+                            <p>Puedes <a href="videos/VideoIndex.webm">descargar el video</a> y verlo en tu reproductor favorito.</p>
+                        </div>
+                    </video>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts necesarios: Bootstrap, AOS y script personalizado -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <!-- Script personalizado para animaciones -->
+    <script>
+        // Inicialización de la librería AOS para animaciones al scroll
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Script para animar los contadores de estadísticas
+        document.addEventListener('DOMContentLoaded', function() {
+            const stats = document.querySelectorAll('.stat-number');
+            
+            stats.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-count'));
+                let count = 0;
+                const duration = 2000; // 2 segundos
+                const increment = target / (duration / 16); // 60 FPS
+
+                const counter = setInterval(() => {
+                    count += increment;
+                    if (count >= target) {
+                        stat.textContent = target;
+                        clearInterval(counter);
+                    } else {
+                        stat.textContent = Math.floor(count);
+                    }
+                }, 16);
+            });
+        });
+    </script>
+</body>
+</html>
